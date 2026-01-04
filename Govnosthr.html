@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Кошаки</title>
+  <style>
+    /* Оформление страницы */
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f0f0f0;
+    }
+
+    .container {
+      text-align: center;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    #photoContainer {
+      margin-top: 20px;
+    }
+
+    img {
+      max-width: 80%;
+      height: auto;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Случайная фотка котика    </h1>
+  <div class="container">
+    <button id="getPhotoBtn">Кошечка</button>
+    <div id="photoContainer">
+      <img id="randomPhoto" src="" alt="Котик" style="display:none;">
+    </div>
+  </div>
+
+  <script>
+    // JavaScript код для получения случайной фотографии котика
+    document.getElementById("getPhotoBtn").addEventListener("click", getRandomCatPhoto);
+
+    function getRandomCatPhoto() {
+      const url = "https://api.thecatapi.com/v1/images/search";  // Эндпоинт для случайной фотографии котика
+
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          const photoUrl = data[0].url;  // Получаем URL изображения котика
+          const imgElement = document.getElementById("randomPhoto");
+          imgElement.src = photoUrl;
+          imgElement.style.display = "block";  // Показываем изображение
+        })
+        .catch(error => {
+          console.error("Ошибка при загрузке фотографии котика:", error);
+        });
+    }
+  </script>
+  <button onclick="location.href='index.html'">Вернуться на главную страницу</button>
+</body>
+</html>
